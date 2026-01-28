@@ -1,10 +1,9 @@
 #!/bin/bash
 a=$1
 b=$2
-if [ $a -lt $b ]; then
-  echo "$a is less than $b"
-elif [ $a -gt $b ]; then
-  echo "$a is greater than $b"
+c=$3
+if [ $a -eq "apple" ] && [ $b -eq "banana" ] && [ $c -eq "cherry" ]; then
+  echo "Fruits matched!"
 else
-  echo "$a is equal to $b"
+  echo "Fruits did not match."
 fi
