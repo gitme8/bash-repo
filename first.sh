@@ -1,4 +1,10 @@
 #!/bin/bash
 a=$1
 b=$2
-echo "Hello $a, this is $b speaking."
+if [ $a -lt $b ]; then
+  echo "$a is less than $b"
+elif [ $a -gt $b ]; then
+  echo "$a is greater than $b"
+else
+  echo "$a is equal to $b"
+fi
