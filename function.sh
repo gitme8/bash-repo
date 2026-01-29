@@ -2,9 +2,8 @@
 
 ID=$(id -u)
 
-VALIDATE(){
-    if [ $1 -ne 0 ]
-    then
+VALIDATE() {
+    if [ "$1" -ne 0 ]; then
         echo "ERROR:: $2 ... FAILED"
         exit 1
     else
@@ -12,22 +11,21 @@ VALIDATE(){
     fi
 }
 
-if [ $ID -ne 0 ]
-then
+# Root check
+if [ "$ID" -ne 0 ]; then
     echo "ERROR:: Please run this script with root access"
-    exit 1 # you can give other than 0
+    exit 1
 else
     echo "You are root user"
-fi # fi means reverse of if, indicating condition end
+fi
 
-sql=$(rpm -q mysql)
-if [ "$sql" != "package mysql is not installed" ]
-then
+# Check MySQL installation (EXIT CODE BASED)
+rpm -q mysql-server &>/dev/null
+if [ $? -eq 0 ]; then
     echo "MySQL is already installed"
     exit 0
-else
-    VALIDATE $? "Installing MySQL"
-    yum install mysql -y
-
 fi
+
+# Install MySQL
+yum install mysql-server -y
 VALIDATE $? "MySQL Installation"
