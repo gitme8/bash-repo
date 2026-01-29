@@ -20,10 +20,14 @@ else
     echo "You are root user"
 fi # fi means reverse of if, indicating condition end
 
-yum install mysql -y
+sql=$(rpm -q mysql)
+if [ "$sql" != "package mysql is not installed" ]
+then
+    echo "MySQL is already installed"
+    exit 0
+else
+    VALIDATE $? "Installing MySQL"
+    yum install mysql -y
 
-VALIDATE $? "Installing MySQL"
-
-yum install git -y
-
-VALIDATE $? "Installing GIT"
+fi
+VALIDATE $? "MySQL Installation"
